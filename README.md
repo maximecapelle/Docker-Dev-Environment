@@ -1,25 +1,27 @@
+
 # Docker Dev Environment
 
 ## Overview
 
-Welcome to **Docker Dev Environment**! This project is designed to ease the setup of the docker environments for development. It uses Docker to create a consistent development environment, including build and launch scripts to streamline the process.
+Welcome to **Docker Dev Environment**! This project simplifies the setup of Docker environments for development. It utilizes Docker to create a consistent development environment, complete with build and launch scripts to streamline the process.
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-- [Current Dockerfiles](#)
+- [Current Features](#current-features)
+- [Coming Soon](#coming-soon)
 
 ## Prerequisites
 
-Ensure you have the following installed on your machine:
+Before you begin, ensure you have the following installed:
 
 - [Docker](https://docs.docker.com/get-docker/)
-- **yq** (sudo snap install yq)
+- **yq**: Install using `sudo snap install yq`
 
 ## Getting Started
 
-To get started with this project, follow these steps:
+Follow these steps to get started with this project:
 
 1. **Clone the Repository:**
 
@@ -55,14 +57,16 @@ Found in *config* directory:
     ./launch.sh
     ```
 
-## Dockerfiles
-**Current**
-- Linux Ubuntu: All standard ubuntu versions, version can be specified with: e.g *UBUNTU_VERSION=22.04* 
-- ROS1/ROS2: Distributions can be specified with: e.g *ROS_VERSION_=2 & ROS_DISTRO_=humble*
-**COMING**
-- Gazebo
-- Ardupilot
-- PX4
-- MAVROS
+## Current Features
+
+- **Linux Ubuntu:** Support for all standard Ubuntu versions. You can specify the version with the environment variable `UBUNTU_VERSION` (e.g., `22.04`).
+- **ROS1/ROS2:** Support for different ROS distributions. Specify the version with `ROS_VERSION_` (e.g., `2`) and the distribution with `ROS_DISTRO_` (e.g., `humble`).
+
+## Coming Soon
+
+- **Gazebo:** Integration with Gazebo for simulation.
+- **Ardupilot:** Support for Ardupilot.
+- **PX4:** Integration with PX4.
+- **MAVROS:** Support for MAVROS for communication with MAVLink-compatible autopilots.
 
 
