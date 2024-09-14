@@ -13,6 +13,7 @@ fi
 # Check if yq is installed
 if ! command -v yq &> /dev/null; then
     echo "yq could not be found. Please install yq to continue."
+    echo -e "use command: \n sudo snap install yq"
     exit 1
 fi
 
