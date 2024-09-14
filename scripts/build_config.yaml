@@ -1,0 +1,23 @@
+build_order:
+  - ubuntu-image
+  - ros2-image
+builds:
+  - name: ubuntu-image
+    dockerfile: Dockerfile.ubuntu
+    build_args:
+      - UBUNTU_VERSION=22.04
+  
+  - name: ros1-image
+    dockerfile: Dockerfile.ros1
+    build_args: []
+  
+  - name: ros2-image
+    dockerfile: Dockerfile.ros2
+    build_args:
+    - ROS_VERSION_=2
+    - ROS_DISTRO_=humble
+
+  - name: my-custom-image
+    dockerfile: Dockerfile.custom
+    build_args:
+      - ARG_CUSTOM=value_custom
