@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to the YAML configuration file
-CONFIG_FILE="build_config.yaml"
+CONFIG_FILE="../config/config.yaml"
 echo "Current directory: $(pwd)"
 
 # Check if the YAML configuration file exists
@@ -10,8 +10,15 @@ if [ ! -f "$CONFIG_FILE" ]; then
     exit 1
 fi
 
+# Check if yq is installed
+if ! command -v yq &> /dev/null; then
+    echo "yq could not be found. Please install yq to continue."
+    exit 1
+fi
+
 # Initialize the variable for the previous image
 PREVIOUS_IMAGE=""
+CONCATENATED_IMAGE_NAME=""
 
 # Loop through the build order
 build_order=$(yq eval '.build_order | length' "$CONFIG_FILE")
@@ -32,15 +39,22 @@ for ((i=0; i<build_order; i++)); do
         ARGUMENTS+=" --build-arg $ARG"
     done
 
+    # Update the concatenated image name
+    if [ -n "$CONCATENATED_IMAGE_NAME" ]; then
+        CONCATENATED_IMAGE_NAME="${CONCATENATED_IMAGE_NAME}.${IMAGE_NAME}"
+    else
+        CONCATENATED_IMAGE_NAME="$IMAGE_NAME"
+    fi
+
     # Add the previous image as a build argument if it's not the first image
     if [ -n "$PREVIOUS_IMAGE" ]; then
         ARGUMENTS+=" --build-arg PREVIOUS_IMAGE=$PREVIOUS_IMAGE"
     fi
 
     # Build the Docker image
-    echo "Building: $IMAGE_NAME  ($PREVIOUS_IMAGE ----> $IMAGE_NAME) "
-    echo "Running: docker build -t \"$IMAGE_NAME\" -f \"$DOCKERFILE\" $ARGUMENTS ."
-    docker build -t "$IMAGE_NAME" -f "$DOCKERFILE" $ARGUMENTS .
+    echo "Building: $CONCATENATED_IMAGE_NAME  ($PREVIOUS_IMAGE ----> $IMAGE_NAME) "
+    echo "Running: docker build -t \"$CONCATENATED_IMAGE_NAME\" -f \"$DOCKERFILE\" $ARGUMENTS ."
+    docker build -t "$CONCATENATED_IMAGE_NAME" -f "$DOCKERFILE" $ARGUMENTS .
 
     # Check if the build was successful
     if [ $? -ne 0 ]; then
@@ -48,10 +62,10 @@ for ((i=0; i<build_order; i++)); do
         exit 1
     fi
 
-    echo "Successfully built $IMAGE_NAME"
+    echo "Successfully built $CONCATENATED_IMAGE_NAME"
 
     # Update the previous image to the current one
-    PREVIOUS_IMAGE=$IMAGE_NAME
+    PREVIOUS_IMAGE=$CONCATENATED_IMAGE_NAME
 done
 
 echo "All images built successfully!"

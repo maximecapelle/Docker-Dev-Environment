@@ -1,0 +1,38 @@
+# Build on previous image -- REQUIRED --
+ARG PREVIOUS_IMAGE=ubuntu:latest
+FROM ${PREVIOUS_IMAGE}
+
+# Set up ROS 1 environment variables
+ARG ROS_VERSION_=melodic
+ARG ROS_DISTRO_=ros-melodic
+ENV ROS_DISTRO=${ROS_DISTRO_}
+ENV ROS_VERSION=${ROS_VERSION_}
+
+# Install necessary packages and setup keys
+RUN apt-get update && \
+    apt-get install -q -y --no-install-recommends \
+    dirmngr \
+    gnupg2 \
+    curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Setup sources.list
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+# Setup ROS keys
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+
+# Setup environment
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+# Install ROS packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ros-${ROS_DISTRO}-desktop-full && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Define a default command (can be overridden)
+CMD [ "bash" ]
+    
