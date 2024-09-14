@@ -1,13 +1,14 @@
 build_order:
   - ubuntu
-  - ros2
+  - ros1
+  - legacy_gazebo
   - user
 builds:
     #**** FIRST & LAST LAYERS ****
   - name: ubuntu
     dockerfile: Dockerfile.ubuntu
     build_args:
-      - UBUNTU_VERSION=22.04
+      - UBUNTU_VERSION=18.04
   - name: user
     dockerfile: Dockerfile.user
     build_args: []
@@ -18,12 +19,23 @@ builds:
     dockerfile: Dockerfile.ros1
     build_args:
       - ROS_VERSION_=1
-      - ROS_DISTRO_=noetic
+      - ROS_DISTRO_=melodic
   
   - name: ros2
     dockerfile: Dockerfile.ros2
     build_args:
     - ROS_VERSION_=2
     - ROS_DISTRO_=humble
+    #***************************
+
+
+    #**** Simulators ****
+  - name: legacy_gazebo
+    dockerfile: Dockerfile.legacy_gazebo
+    build_args: []
+  
+  - name: gz_sim
+    dockerfile: Dockerfile.gz_sim
+    build_args: []
     #***************************
 

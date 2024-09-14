@@ -31,11 +31,15 @@ fi
 
 # Run the Docker container with interactive terminal
 echo "Launching Docker container: $IMAGE_NAME"
+xhost +local:root
 docker run -it \
     --rm \
     --name dev_container \
+    --privileged \
     --volume "$HOME/$WS_DIRECTORY_LOCAL":"$WS_DIRECTORY_CONTAINER" \
     --volume "$(pwd):/$SCRIPTS" \
-    -w $WS_DIRECTORY_CONTAINER \
-    --entrypoint $ENTRYPOINT_PATH \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    -w "$WS_DIRECTORY_CONTAINER" \
+    -e DISPLAY \
+    --entrypoint "$ENTRYPOINT_PATH" \
     "$IMAGE_NAME" bash
