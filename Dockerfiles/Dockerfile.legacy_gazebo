@@ -1,6 +1,0 @@
-# Build on previous image -- REQUIRED --
-ARG PREVIOUS_IMAGE=ubuntu:latest
-FROM ${PREVIOUS_IMAGE}
-
-# Test One Liner - 11
-RUN curl -sSL http://get.gazebosim.org | sh

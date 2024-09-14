@@ -1,0 +1,30 @@
+# Base image
+ARG PREVIOUS_IMAGE=ubuntu:latest
+FROM ${PREVIOUS_IMAGE}
+
+# Set Gazebo Version argument
+ARG GAZEBO_VERSION=garden
+
+# Install dependencies and Gazebo
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Add the Gazebo repository
+RUN wget -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg https://packages.osrfoundation.org/gazebo.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+
+# Install the selected Gazebo version
+RUN apt-get update && \
+    if [ "$GAZEBO_VERSION" = "garden" ]; then \
+        apt-get install -y gz-garden; \
+    elif [ "$GAZEBO_VERSION" = "harmonic" ]; then \
+        apt-get install -y gz-harmonic; \
+    elif [ "$GAZEBO_VERSION" = "fortress" ]; then \
+        apt-get install -y gz-fortress; \
+    else \
+        echo "Unsupported GAZEBO_VERSION: $GAZEBO_VERSION"; \
+        exit 1; \
+    fi && \
+    rm -rf /var/lib/apt/lists/*

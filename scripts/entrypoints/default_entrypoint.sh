@@ -10,11 +10,9 @@ source_ros() {
             source "$ROS_SETUP"
         else
             echo "Error: Could not find ROS setup file for $ROS_DISTRO at $ROS_SETUP"
-            exit 1
         fi
     else
         echo "Error: ROS_DISTRO environment variable is not set."
-        exit 1
     fi
 }
 
@@ -26,7 +24,7 @@ OS_VERSION=$(lsb_release -d | awk -F"\t" '{print $2}')
 echo -e "\n\n"
 echo "OS: $OS_VERSION"
 
-# Print ROS version
+# # Print ROS version
 echo "ROS$ROS_VERSION: $ROS_DISTRO"
 echo -e "\n\n"
 
