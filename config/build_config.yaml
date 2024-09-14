@@ -3,11 +3,17 @@ build_order:
   - ros2
   - user
 builds:
+    #**** FIRST & LAST LAYERS ****
   - name: ubuntu
     dockerfile: Dockerfile.ubuntu
     build_args:
       - UBUNTU_VERSION=22.04
+  - name: user
+    dockerfile: Dockerfile.user
+    build_args: []
+    #*****************************
   
+    #**** ROS DOCKER FILES ****
   - name: ros1
     dockerfile: Dockerfile.ros1
     build_args:
@@ -19,14 +25,5 @@ builds:
     build_args:
     - ROS_VERSION_=2
     - ROS_DISTRO_=humble
+    #***************************
 
-  - name: user
-    dockerfile: Dockerfile.user
-    build_args:
-    - ENTRYPOINT_PATH: default_entrypoint.sh
-
-launch:
-  - IMAGE_NAME: ubuntu.ros2.user
-  - WS_DIRECTORY_LOCAL: ros2_ws
-  - WS_DIRECTORY_CONTAINER: /ros2_ws/
-  - ENTRYPOINT_PATH: /scripts/default_entrypoint.sh

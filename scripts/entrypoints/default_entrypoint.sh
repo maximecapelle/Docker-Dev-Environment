@@ -27,7 +27,7 @@ echo -e "\n\n"
 echo "OS: $OS_VERSION"
 
 # Print ROS version
-echo "ROS: $ROS_DISTRO"
+echo "ROS$ROS_VERSION: $ROS_DISTRO"
 echo -e "\n\n"
 
 # Start an interactive shell

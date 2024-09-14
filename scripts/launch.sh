@@ -1,5 +1,5 @@
 #!/bin/bash
-CONFIG_FILE="../config/config.yaml"
+CONFIG_FILE="../config/launch_config.yaml"
 echo "Current directory: $(pwd)"
 
 # Check if the YAML configuration file exists

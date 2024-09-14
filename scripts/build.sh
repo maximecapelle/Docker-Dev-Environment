@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to the YAML configuration file
-CONFIG_FILE="../config/config.yaml"
+CONFIG_FILE="../config/build_config.yaml"
 echo "Current directory: $(pwd)"
 
 # Check if the YAML configuration file exists
