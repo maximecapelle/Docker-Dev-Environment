@@ -1,6 +1,7 @@
 build_order:
   - ubuntu
   - ros2
+  - gz_sim
   - user
 builds:
     #**** FIRST & LAST LAYERS ****
@@ -36,6 +37,7 @@ builds:
   
   - name: gz_sim
     dockerfile: Dockerfile.gz_sim
-    build_args: []
+    build_args:
+    - GAZEBO_VERSION=harmonic
     #***************************
 

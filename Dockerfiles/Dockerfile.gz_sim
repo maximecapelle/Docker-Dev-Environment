@@ -4,6 +4,7 @@ FROM ${PREVIOUS_IMAGE}
 
 # Set Gazebo Version argument
 ARG GAZEBO_VERSION=garden
+ENV GAZEBO_VERSION=${GAZEBO_VERSION}
 
 # Install dependencies and Gazebo
 RUN apt-get update && apt-get install -y \
