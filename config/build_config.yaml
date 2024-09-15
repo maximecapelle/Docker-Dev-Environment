@@ -2,6 +2,7 @@ build_order:
   - ubuntu
   - ros2
   - gz_sim
+  - px4
   - user
 builds:
     #**** FIRST & LAST LAYERS ****
@@ -28,7 +29,6 @@ builds:
     - ROS_DISTRO_=humble
     #***************************
 
-
     #**** Simulators ****
   - name: legacy_gazebo
     dockerfile: Dockerfile.legacy_gazebo
@@ -41,3 +41,12 @@ builds:
     - GAZEBO_VERSION=harmonic
     #***************************
 
+    #**** Flight Software ****
+  - name: px4
+    dockerfile: Dockerfile.px4
+    build_args: []
+  
+  - name: ardupilot
+    dockerfile: Dockerfile.ardupilot
+    build_args: []
+    #***************************

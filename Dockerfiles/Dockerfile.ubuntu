@@ -18,5 +18,11 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# All additional software that only lives in the Docker goes here
+RUN mkdir -p /setup_ws/src
+
+## Grant full permissions for this WS
+RUN sudo chmod -R 777 /setup_ws
+
 # Define a default command (can be overridden)
 CMD [ "bash" ]
