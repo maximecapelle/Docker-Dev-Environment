@@ -26,7 +26,7 @@ Follow these steps to get started with this project:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/maximecapelle/Docker-Dev-Environment.git docker_dev
+   git clone https://github.com/maximecapelle/Drone-Docker-Dev-Environment.git docker_dev
    cd docker_dev
     ```
 2. **Change the build_config.yaml file:**
