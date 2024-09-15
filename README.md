@@ -58,15 +58,13 @@ Found in *config* directory:
     ```
 
 ## Current Features
-
-- **Linux Ubuntu:** Support for all standard Ubuntu versions. You can specify the version with the environment variable `UBUNTU_VERSION` (e.g., `22.04`).
+- **Linux Ubuntu:** Support for all standard Ubuntu versions. You can specify the version with the environment variable `UBUNTU_VERSION` (e.g., `22.04`). 
 - **ROS1/ROS2:** Support for different ROS distributions. Specify the version with `ROS_VERSION_` (e.g., `2`) and the distribution with `ROS_DISTRO_` (e.g., `humble`).
+- **Gazebo:** Integration with Gazebo for simulation.
+- **PX4:** Integration with PX4.
 
 ## Coming Soon
-
-- **Gazebo:** Integration with Gazebo for simulation.
 - **Ardupilot:** Support for Ardupilot.
-- **PX4:** Integration with PX4.
 - **MAVROS:** Support for MAVROS for communication with MAVLink-compatible autopilots.
 
 
