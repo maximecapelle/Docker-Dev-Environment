@@ -1,5 +1,5 @@
 launch:
   - IMAGE_NAME: ubuntu.ros2.px4.user
-  - WS_DIRECTORY_LOCAL: ros2_ws
-  - WS_DIRECTORY_CONTAINER: /ros2_ws/
+  - WS_DIRECTORY_LOCAL: dev_ws
+  - WS_DIRECTORY_CONTAINER: /dev_ws/
   - ENTRYPOINT_PATH: /scripts/entrypoints/default_entrypoint.sh

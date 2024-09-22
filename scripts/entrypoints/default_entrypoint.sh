@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e  # Exit immediately if a command exits with a non-zero status
 
+# For workspace path
+STARTING_DIR=$(pwd)
+
 # FUNCTIONS
 source_ros() {
     if [ -n "$ROS_DISTRO" ]; then
@@ -41,8 +44,8 @@ fi
 if [ -n "$PX4_INSTALLED" ]; then
     echo "PX4: Installed"
     # Check if the symbolic link already exists
-    if [ ! -L /ros2_ws/PX4-Autopilot ]; then
-        ln -s /setup_ws/PX4/PX4-Autopilot /ros2_ws/PX4-Autopilot
+    if [ ! -L $STARTING_DIR/PX4-Autopilot ]; then
+        ln -s /setup_ws/PX4/PX4-Autopilot $STARTING_DIR/PX4-Autopilot
     fi
 fi
 
@@ -50,11 +53,14 @@ fi
 if [ -n "$QGC_INSTALLED" ]; then
     echo "QGroundControl: Installed"
     # Check if the symbolic link already exists
-    if [ ! -L /ros2_ws/QGroundControl.AppImage ]; then
-        ln -s /app/QGroundControl.AppImage /ros2_ws/QGroundControl.AppImage
+    if [ ! -L $STARTING_DIR/QGroundControl.AppImage ]; then
+        ln -s /app/QGroundControl.AppImage $STARTING_DIR/QGroundControl.AppImage
     fi
 fi
 
 echo -e "\n\n"
+read -p "Press [Enter] key to start the container..."
+
 # Start an interactive shell
 exec "$@"
+

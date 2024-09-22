@@ -1,9 +1,9 @@
 #!/bin/bash
-ORIGINAL_DIR="modules/docker/scripts/"
-cd "$ORIGINAL_DIR" || { echo "Failed to change directory to $ORIGINAL_DIR"; exit 1; }
+SCRIPTS_DIR="modules/docker/scripts/"
+# cd "$ORIGINAL_DIR" || { echo "Failed to change directory to $ORIGINAL_DIR"; exit 1; }
 
-CONFIG_FILE="../config/launch_config.yaml"
-echo "Current directory: $(pwd)"
+# Load in the configuration file
+CONFIG_FILE="$SCRIPTS_DIR/../config/launch_config.yaml"
 
 # Check if the YAML configuration file exists
 if [ ! -f "$CONFIG_FILE" ]; then
@@ -23,7 +23,7 @@ IMAGE_NAME=$(yq eval '.launch[0].IMAGE_NAME' "$CONFIG_FILE")
 WS_DIRECTORY_LOCAL=$(yq eval '.launch[1].WS_DIRECTORY_LOCAL' "$CONFIG_FILE")
 WS_DIRECTORY_CONTAINER=$(yq eval '.launch[2].WS_DIRECTORY_CONTAINER' "$CONFIG_FILE")
 ENTRYPOINT_PATH=$(yq eval '.launch[3].ENTRYPOINT_PATH' "$CONFIG_FILE")
-SCRIPTS=$(basename "$(pwd)")
+SCRIPTS=$(basename "$SCRIPTS_DIR")
 
 
 # Check if the Docker image exists
@@ -39,8 +39,8 @@ docker run -it \
     --rm \
     --name dev_container \
     --privileged \
-    --volume "$HOME/$WS_DIRECTORY_LOCAL":"$WS_DIRECTORY_CONTAINER" \
-    --volume "$(pwd):/$SCRIPTS" \
+    --volume "$(pwd)/$WS_DIRECTORY_LOCAL":"$WS_DIRECTORY_CONTAINER" \
+    --volume "$(pwd)/$SCRIPTS_DIR:/$SCRIPTS" \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -w "$WS_DIRECTORY_CONTAINER" \
     -e DISPLAY \
