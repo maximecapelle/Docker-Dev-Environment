@@ -37,7 +37,23 @@ if [ -n "$GAZEBO_VERSION" ]; then
     echo "Gazebo: $GAZEBO_VERSION"
 fi
 
+# # Print PX4 Firmware
+if [ -n "$PX4_INSTALLED" ]; then
+    echo "PX4: Installed"
+    # Check if the symbolic link already exists
+    if [ ! -L /ros2_ws/PX4-Autopilot ]; then
+        ln -s /setup_ws/PX4/PX4-Autopilot /ros2_ws/PX4-Autopilot
+    fi
+fi
 
+# # Print QGroundControl
+if [ -n "$QGC_INSTALLED" ]; then
+    echo "QGroundControl: Installed"
+    # Check if the symbolic link already exists
+    if [ ! -L /ros2_ws/QGroundControl.AppImage ]; then
+        ln -s /app/QGroundControl.AppImage /ros2_ws/QGroundControl.AppImage
+    fi
+fi
 
 echo -e "\n\n"
 # Start an interactive shell

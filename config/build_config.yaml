@@ -1,7 +1,6 @@
 build_order:
   - ubuntu
   - ros2
-  - gz_sim
   - px4
   - user
 builds:
@@ -38,7 +37,7 @@ builds:
   - name: gz_sim
     dockerfile: Dockerfile.gz_sim
     build_args:
-    - GAZEBO_VERSION=harmonic
+    - GAZEBO_VERSION=garden
     #***************************
 
     #**** Flight Software ****

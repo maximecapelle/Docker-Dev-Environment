@@ -22,7 +22,7 @@ RUN apt-get update && \
 RUN mkdir -p /setup_ws/src
 
 ## Grant full permissions for this WS
-RUN sudo chmod -R 777 /setup_ws
+RUN chmod -R 777 /setup_ws
 
 # Define a default command (can be overridden)
 CMD [ "bash" ]
