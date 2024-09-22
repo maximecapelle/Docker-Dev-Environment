@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Get the directory of the original script
+ORIGINAL_DIR="modules/docker/scripts/"
+cd "$ORIGINAL_DIR" || { echo "Failed to change directory to $ORIGINAL_DIR"; exit 1; }
+
 # Define the path to the YAML configuration file
 CONFIG_FILE="../config/build_config.yaml"
 echo "Current directory: $(pwd)"

@@ -1,4 +1,7 @@
 #!/bin/bash
+ORIGINAL_DIR="modules/docker/scripts/"
+cd "$ORIGINAL_DIR" || { echo "Failed to change directory to $ORIGINAL_DIR"; exit 1; }
+
 CONFIG_FILE="../config/launch_config.yaml"
 echo "Current directory: $(pwd)"
 
