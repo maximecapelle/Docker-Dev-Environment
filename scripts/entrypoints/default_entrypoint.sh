@@ -33,6 +33,7 @@ if [ -n "$ROS_DISTRO" ]; then
     # Source ROS
     source_ros  # Correct function name
     echo "ROS$ROS_VERSION: $ROS_DISTRO"
+    echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 fi
 
 # # Print Gazebo Environment
@@ -59,7 +60,10 @@ if [ -n "$QGC_INSTALLED" ]; then
 fi
 
 echo -e "\n\n"
-read -p "Press [Enter] key to start the container..."
+
+# # Source ROS
+echo 'cd /dev_ws' >> ~/.bashrc
+echo '. install/setup.bash'>> ~/.bashrc
 
 # Start an interactive shell
 exec "$@"
