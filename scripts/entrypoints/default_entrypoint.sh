@@ -17,7 +17,10 @@ source_ros() {
     fi
 }
 
+###### Things that arent working in Docker file
+pip3 install kconfiglib jsonschema jinja2 > /dev/null 2>&1
 
+#######
 
 ## PRINTING VERSIONS
 echo -e "\n\n"
