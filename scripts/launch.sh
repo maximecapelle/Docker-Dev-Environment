@@ -45,4 +45,5 @@ docker run -it \
     -w "$WS_DIRECTORY_CONTAINER" \
     -e DISPLAY \
     --entrypoint "$ENTRYPOINT_PATH" \
+    --runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all \
     "$IMAGE_NAME" bash
