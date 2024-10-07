@@ -1,8 +1,8 @@
 build_order:
   - ubuntu
-  - ros2
-  - px4
   - user
+  - gz_sim
+  - ardupilot
 builds:
     #**** FIRST & LAST LAYERS ****
   - name: ubuntu

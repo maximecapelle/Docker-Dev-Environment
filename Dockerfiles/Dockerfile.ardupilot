@@ -1,0 +1,52 @@
+ARG PREVIOUS_IMAGE=ubuntu:latest
+FROM ${PREVIOUS_IMAGE}
+
+ENV AP_INSTALLED=1
+# ENV DEBIAN_FRONTEND=noninteractive
+
+# Switch to root user
+USER root
+
+# Ensure /setup_ws has correct permissions
+RUN chmod -R 777 /setup_ws
+
+# Install tzdata and set timezone in non-interactive mode
+RUN apt-get update && \
+    apt-get install -y tzdata && \
+    echo "Europe/London" > /etc/timezone && \
+    ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+
+# Clone the ArduPilot repository
+USER maximecapelle
+WORKDIR /setup_ws
+RUN git clone https://github.com/maximecapelle/ardupilot.git --recursive
+
+# Run the prerequisites installation script
+RUN ./ardupilot/Tools/environment_install/install-prereqs-ubuntu.sh -y
+USER root
+
+# Download the QGroundControl AppImage
+WORKDIR /app
+ENV QGC_INSTALLED=1
+
+# Install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    gstreamer1.0-plugins-bad \
+    gstreamer1.0-libav \
+    gstreamer1.0-gl \
+    libfuse2 \
+    fuse \
+    libxcb-xinerama0 \
+    libxkbcommon-x11-0 \
+    libxcb-cursor-dev \
+    && apt-get remove -y modemmanager \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl.AppImage && \
+    chmod +x QGroundControl.AppImage
+
+RUN chmod -R 777 /setup_ws /app
+USER maximecapelle
+WORKDIR /dev_ws

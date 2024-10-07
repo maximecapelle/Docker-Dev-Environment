@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e  # Exit immediately if a command exits with a non-zero status
+# set -e  # Exit immediately if a command exits with a non-zero status
 
 # For workspace path
 STARTING_DIR=$(pwd)
@@ -19,7 +19,6 @@ source_ros() {
 
 ###### Things that arent working in Docker file
 pip3 install kconfiglib jsonschema jinja2 > /dev/null 2>&1
-
 #######
 
 ## PRINTING VERSIONS
@@ -37,6 +36,9 @@ if [ -n "$ROS_DISTRO" ]; then
     source_ros  # Correct function name
     echo "ROS$ROS_VERSION: $ROS_DISTRO"
     echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+    # # Source ROS
+    echo 'cd /dev_ws' >> ~/.bashrc
+    echo '. install/setup.bash'>> ~/.bashrc
 fi
 
 # # Print Gazebo Environment
@@ -53,6 +55,12 @@ if [ -n "$PX4_INSTALLED" ]; then
     fi
 fi
 
+# # Print AP Firmware
+if [ -n "$AP_INSTALLED" ]; then
+    echo "AP Dependancies: Installed"
+    ln -s /setup_ws/ardupilot/Tools/autotest/sim_vehicle.py $STARTING_DIR/sim_vehicle.py
+fi
+
 # # Print QGroundControl
 if [ -n "$QGC_INSTALLED" ]; then
     echo "QGroundControl: Installed"
@@ -64,9 +72,6 @@ fi
 
 echo -e "\n\n"
 
-# # Source ROS
-echo 'cd /dev_ws' >> ~/.bashrc
-echo '. install/setup.bash'>> ~/.bashrc
 
 # Start an interactive shell
 exec "$@"
